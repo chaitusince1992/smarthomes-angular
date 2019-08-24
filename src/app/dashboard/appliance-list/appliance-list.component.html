@@ -1,0 +1,34 @@
+<!-- <div class="appliance-list-array">
+  <div class="mac-effect-container" ng-mouseover="mouseoverOnAppl($event, appliance.clicked)"
+    ng-mouseleave="mouseleaveOnAppl($event, appliance.clicked)" ng-repeat="appliance in applianceList"
+    data-area-id="{{appliance.applianceId}}">
+    <div class="appliance-svg-icon-container active" ng-click="clickedOnAppl($event,appliance)"
+      style="background-color:{{appliance.color}};border-color:{{appliance.borderColor}}" ng-model="appliance.clicked">
+      <img ng-src="img/new-svg/{{appliance.applianceId}}.svg" alt="ic">
+    </div>
+    <div class="appliance-tooltip">
+      <div class="tooltip-pointer"></div>
+      <div class="tooltip-content">
+        <div style="text-transform: uppercase;font-size: 14px;">{{appliance.applianceTitle}}</div>
+        <div class="consumption">Consumption: <br> {{appliance.unitsConsumed}} ({{appliance.percentage}})</div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="appliance-list-array">
+  <div class="mac-effect-container" *ngFor="let appliance of applianceList"
+    (mouseover)="mouseoverOnAppl($event, appliance.clicked)" 
+    (mouseleave)="mouseleaveOnAppl($event, appliance.clicked)">
+    <div class="appliance-svg-icon-container active">
+      <img [src]="'assets/img/new-svg/' + appliance.applianceId +'.svg'" alt="ic">
+    </div>
+    <div class="appliance-tooltip">
+      <div class="tooltip-pointer"></div>
+      <div class="tooltip-content">
+        <div style="text-transform: uppercase;font-size: 14px;">{{appliance.applianceTitle}}</div>
+        <div class="consumption">Consumption: <br> {{appliance.unitsConsumed}} ({{appliance.percentage}})</div>
+      </div>
+    </div>
+  </div>
+</div>

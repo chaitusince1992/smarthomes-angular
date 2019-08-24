@@ -1,0 +1,35 @@
+.chart-area {
+    height: 75%;
+    height: 500px;
+    top: 50px;
+    left: 0px;
+    right: 30px;
+    padding: 15px 5px 0;
+    overflow: auto;
+    width: 85%;
+    width: 900px;
+    display: inline-block;
+
+    #daily-trend-chart {
+        width: 100%;
+        height: 84%;
+    }
+
+    #trend-over-the-time {
+        width: 100%;
+        height: 15%;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    @media screen and (orientation: portrait) {
+        bottom: 150px;
+        top: 150px;
+        left: 10px;
+        right: 10px;
+        height: initial;
+    }
+}

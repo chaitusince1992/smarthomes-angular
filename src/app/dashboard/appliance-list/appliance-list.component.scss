@@ -1,0 +1,109 @@
+
+.appliance-list-array {
+    /*position: absolute;
+    left: 0;
+    top: 10px;*/
+    width: 104%;
+    padding: 10px 0;
+    margin: 0 -2%;
+    border-radius: 0;
+    z-index: 0;
+    border: 1px solid rgba(64, 77, 243, 0.6);
+    background-color: rgba(2, 21, 33, 0.6);
+    border-left: 0;
+    border-right: 0;
+    height: 40px;
+    .appliance-svg-icon-container {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        padding: 10px;
+        border-radius: 50%;
+        background: transparent;
+        vertical-align: top;
+        transition: all 0.15s linear;
+        margin: 0 5px;
+        border: 1px solid #d8d8d8;
+        img {
+            -webkit-filter: invert(100%);
+            filter: invert(100%);
+            width: 100%;
+        }
+        &:after {
+            opacity: 0.5;
+            content: '';
+        }
+        &.active {
+            background: black;
+        }
+    }
+    .mac-effect-container {
+        display: inline-block;
+        position: relative;
+        .appliance-tooltip {
+            /*display: none;
+            position: absolute;
+            top: 70px;
+            text-align: center;
+            width: 100%;
+            color: white;
+            font-size: 10px;*/
+            display: none;
+            position: absolute;
+            top: 75px;
+            text-align: center;
+            width: 200%;
+            color: rgba(247, 247, 247, 0.7);
+            font-size: 12px;
+            height: 48px;
+            //            background: rgba(242, 120, 75, 0.5);
+            //            background: #404df3;
+            background: #2f3fb1;
+            /* border: 1px solid #F2784B; */
+            margin: 0px -64%;
+            border-radius: 5px;
+            padding: 10%;
+            .tooltip-pointer {
+                position: absolute;
+                top: -5px;
+                left: 49%;
+                width: 10px;
+                height: 10px;
+                transform: rotate(45deg);
+                background: inherit;
+                z-index: 1;
+            }
+            .tooltip-content {
+                position: absolute;
+                z-index: 2;
+                width: 90%;
+                /* background: red; */
+                height: 80%;
+            }
+        }
+        &.hover {
+            .appliance-tooltip {
+                display: block;
+            }
+            .appliance-svg-icon-container {
+                transform: scale(1.75);
+                margin-left: 15px;
+                margin-right: 15px;
+                transform-origin: center top;
+                z-index: 200;
+            }
+        }
+        &.nearby {
+            .appliance-tooltip {
+                display: none;
+            }
+            .appliance-svg-icon-container {
+                transform: scale(1.25);
+                margin-left: 10px;
+                margin-right: 10px;
+                transform-origin: center top;
+                z-index: 100;
+            }
+        }
+    }
+}
