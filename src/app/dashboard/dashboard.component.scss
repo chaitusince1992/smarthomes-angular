@@ -62,6 +62,10 @@
             filter: invert(100%);
         }
     }
+    
+    &.active.disabled {
+        pointer-events: none;
+    }
 
     &.active-mode2 {
         -webkit-filter: invert(100%);

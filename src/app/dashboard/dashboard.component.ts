@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     this.apiService.callServicePost('getHomesList', undefined, data => {
-      console.log(data);
+      // console.log(data);
       this.homesList = [data[0], data[1]];
       // this.homesList = [data[0], data[1], data[2], data[3], data[4]];
       /***********
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
       ************/
 
       this.apiService.callServiceGet("minAndMax?houseId=" + this.clickedHomesCSV, res => {
-        console.log(res);
+        // console.log(res);
         this.sliderData = {
           scaleRange: [res.min, res.max],
           values: [new Date(res.max).getTime() - 2700000000, new Date(res.max).getTime()]
@@ -76,42 +76,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // getApplianceList() {
-  //   console.log(this.clickedHomesArray);
-  //   this.apiService.callServicePost('getApplianceList', {
-  //     homes: this.clickedHomesArray
-  //   }, houseData => { //get the appliance list
-  //     console.log(houseData);
-  //     this.applianceList = houseData;
-  //     /********
-  //     Do some default things here like making data object to get complete data
-  //     ********/
-  //     this.clickedAppliancesArray = [];
-  //     this.clickedAppliancesCSV = '';
-  //     var itr = 0;
-  //     houseData.forEach((d, i) => {
-  //       d.color = this.constants.applBgColor(this.constants.colorArray[d.applianceId]);
-  //       d.borderColor = this.constants.colorArray[d.applianceId];
-  //       if (d.clicked === true) {
-  //         this.clickedAppliancesArray.push(d.applianceId);
-  //         (itr === 0) ? this.clickedAppliancesCSV = this.clickedAppliancesCSV + d.applianceId : this.clickedAppliancesCSV = this.clickedAppliancesCSV + "," + d.applianceId;
-  //         itr++;
-  //       }
-  //     })
-  //     this.applianceList = houseData;
-  //     console.log(this.clickedAppliancesCSV);
-
-  //   }, err => {
-
-  //   });
-  // }
-
   applianceSelected(applData) {
     this.applianceList = applData.list;
     this.clickedAppliancesArray = applData.clicked;
     this.clickedApplianceId = applData.clickedId;
-    // this.timeSliderSVGApi(); // dont delete
   }
+
   /***********
   Same used below in clickedOnAppl method also
   *************/
@@ -127,23 +97,21 @@ export class DashboardComponent implements OnInit {
         d.unitsConsumed = (Math.floor(res[0]["y" + d.applianceId] * 100 / (60 * 1000)) / 100) + " Units"
         d.percentage = (Math.floor(res[0]["y" + d.applianceId] * 10000 / res[0]["total"]) / 100) + "%"
       })
-      // this.timeSliderChanged(); // don't delete it
     }, err => { });
   }
 
   clickedOnHome(e, houseData) {
-    console.log(e, houseData);
+    // console.log(e, houseData);
+    houseData.clicked = !houseData.clicked;
     document.getElementsByClassName("each-home select-all")[0]["dataset"].selectState = "some";
-    if (houseData.clicked) {
-      // angular.element(e.currentTarget).removeClass("active");
+    /* if (houseData.clicked) {
       e.currentTarget.classList.remove('active');
       houseData.clicked = false;
     } else {
-      // angular.element(e.currentTarget).addClass("active");
       e.currentTarget.classList.add('active');
       houseData.clicked = true;
-    }
-    console.log(this.homesList);
+    } */
+    // console.log(this.homesList);
     this.clickedHomesCSV = '';
     var itr = 0;
     let clickedHomes = [];
@@ -155,16 +123,12 @@ export class DashboardComponent implements OnInit {
       }
     })
     this.clickedHomesArray = clickedHomes;
-    console.log(this.clickedHomesCSV);
+    // console.log(this.clickedHomesCSV);
     this.noHomeSelected = true;
-    // document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/minus.png" alt="">';
-    // this.applianceObject = {}; //resetting the appliance array
 
     /*****************************
     Revalidate below code
     ******************************/
-
-
     if (this.clickedHomesArray.length === 0) {
       alert("At least select a home.");
       return;

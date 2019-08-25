@@ -42,27 +42,17 @@ export class AreaChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.clickedHomesArray, "changed");
+    // console.log(changes.clickedHomesArray, "changed");
     if (changes.clickedHomesArray && !changes.clickedHomesArray.firstChange) {
       this.oldChartDataset = undefined;
-      // this.timeSliderChanged();
       this.timeSliderSVGApi();
-    } else
-      // if (changes.sliderData && !changes.sliderData.firstChange) {
-      //   // this.timeSliderSVGApi();
-      //   this.timeSliderChanged();
-      // } else 
-      if (changes.clickedAppliancesArray &&
-        !changes.clickedAppliancesArray.firstChange &&
-        this.chartData && this.oldChartDataset) {
-        this.chartDataFormatting();
-      }
-    // else {
-
-    // }
+    } else if (changes.clickedAppliancesArray &&
+      !changes.clickedAppliancesArray.firstChange &&
+      this.chartData && this.oldChartDataset) {
+      this.chartDataFormatting();
+    }
   }
   chartCreate(dataArray) {
-    // let dataArray = this.chartDataArray;
     var data = {};
     for (var key in dataArray[0]) {
       var test = [];
@@ -116,7 +106,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
       data: data,
       applArray: applArray
     };
-    console.log(this.chartDataset, this.oldChartDataset);
+    // console.log(this.chartDataset, this.oldChartDataset);
     if (this.oldChartDataset === undefined || this.oldChartDataset.applArray.length === 0) {
       var applArray = this.getApplArray({
         longArray: this.chartDataset.applArray,
@@ -125,7 +115,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         firstOrLast: true
       });
     } else if (this.oldChartDataset.applArray.length > this.chartDataset.applArray.length && this.chartDataset.applArray.length !== 0) {
-      console.log("removed", "y" + this.clickedApplianceId);
+      // console.log("removed", "y" + this.clickedApplianceId);
       var applArray = this.getApplArray({
         longArray: this.oldChartDataset.applArray,
         shortArray: this.chartDataset.applArray,
@@ -136,7 +126,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         firstOrLast: false
       });
     } else if (this.oldChartDataset.applArray.length < this.chartDataset.applArray.length) {
-      console.log("added", "y" + this.clickedApplianceId);
+      // console.log("added", "y" + this.clickedApplianceId);
       var applArray = this.getApplArray({
         longArray: this.chartDataset.applArray,
         shortArray: this.oldChartDataset.applArray,
@@ -147,7 +137,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         firstOrLast: false
       });
     } else if (this.oldChartDataset.applArray.length === this.chartDataset.applArray.length && this.chartDataset.applArray.length !== 0) {
-      console.log("when both are equal length");
+      // console.log("when both are equal length");
       var applArray = this.getApplArray({
         longArray: this.oldChartDataset.applArray, //old
         shortArray: this.chartDataset.applArray, //curr
@@ -156,7 +146,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         equalLength: true
       });
     } else {
-      console.log("when current length is zero, old is one");
+      // console.log("when current length is zero, old is one");
       var applArray = this.getApplArray({
         longArray: this.oldChartDataset.applArray,
         longArrayName: "prev",
@@ -164,7 +154,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         firstOrLast: true
       });
     }
-    console.log(data, applArray);
+    // console.log(data, applArray);
 
 
     this.chartSVGLinear(data, applArray);
@@ -189,8 +179,6 @@ export class AreaChartComponent implements OnInit, OnChanges {
       }, res => {
 
         this.timeSliderChart(res);
-        // this.timeSliderChartData = res;
-        // this.consumptionDetails(); // delete it later
       }, err => { })
     }, err => { })
   }
@@ -276,7 +264,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
       .attr("transform", "translate(1,0)"); //to move whole paths right side to make y aixs visible properly
 
     applArray.forEach(applData => {
-      console.log(applData.key)
+      // console.log(applData.key)
       var itr = applData.key.substr(1);
       areaGroup.append("g")
         .attr("class", "each-area")
@@ -293,8 +281,8 @@ export class AreaChartComponent implements OnInit, OnChanges {
         .attr("transform-origin", "0px " + (svg.node().getBBox().height - 20) + "px 0px")
         .attr("transform", "scale(1,1)")
         .attr("d", d3.area()
-          //                    .curve(d3.curveCardinal)
-          //                    .curve(d3.curveCatmullRom)
+          // .curve(d3.curveCardinal)
+          // .curve(d3.curveCatmullRom)
           .curve(d3.curveMonotoneX)
           .x(d => x(new Date(d.x).getTime()))
           .y1(d => yPrev(d.prev.yh))
@@ -331,12 +319,9 @@ export class AreaChartComponent implements OnInit, OnChanges {
           for (let i = 0; i < classes.length; i++) {
             var ele = classes[i];
             if (Number(ele["dataset"].areaId) === Number(itr)) {
-              // angular.element(ele).addClass("hover");
               ele.classList.add("hover");
-              // angular.element(ele.nextElementSibling).addClass("nearby");
-              ele.nextElementSibling.classList.add("nearby");
-              // angular.element(ele.previousElementSibling).addClass("nearby");
-              ele.nextElementSibling.classList.add("nearby");
+              ele.nextElementSibling ? ele.nextElementSibling.classList.add("nearby") : '';
+              ele.previousElementSibling ? ele.previousElementSibling.classList.add("nearby") : '';
             }
 
           }
@@ -353,12 +338,9 @@ export class AreaChartComponent implements OnInit, OnChanges {
           for (let i = 0; i < classes.length; i++) {
             var ele = classes[i];
             if (Number(ele["dataset"].areaId) === Number(itr)) {
-              // angular.element(ele).removeClass("hover");
               ele.classList.remove("hover");
-              // angular.element(ele.nextElementSibling).removeClass("nearby")
-              ele.nextElementSibling.classList.remove("nearby");
-              // angular.element(ele.previousElementSibling).removeClass("nearby")
-              ele.nextElementSibling.classList.remove("nearby");
+              ele.nextElementSibling ? ele.nextElementSibling.classList.remove("nearby") : '';
+              ele.previousElementSibling ? ele.previousElementSibling.classList.remove("nearby") : '';
             }
 
           }
@@ -366,8 +348,8 @@ export class AreaChartComponent implements OnInit, OnChanges {
         .transition()
         .duration(1000)
         .attr("d", d3.area()
-          //                    .curve(d3.curveCardinal)
-          //                    .curve(d3.curveCatmullRom)
+          // .curve(d3.curveCardinal)
+          // .curve(d3.curveCatmullRom)
           .curve(d3.curveMonotoneX)
           .x(d => x(new Date(d.x).getTime()))
           .y1(d => yCurr(d.curr.yh))
@@ -391,7 +373,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
       .attr("height", d => height);
     d3.select("g.area-group")
       .on("mouseout", d => {
-        console.log("mouseovered");
+        // console.log("mouseovered");
         d3.select("rect.tooltip")
           .attr("fill", "transparent")
       })
@@ -401,7 +383,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         if (Math.floor(x.invert(d3.mouse(this)[0])) > 11) {
           color = "#f7f7f7";
         }
-        console.log("mousemoved");
+        // console.log("mousemoved");
         d3.select("rect.tooltip")
           .attr("x", xVal + 1)
       })
@@ -454,8 +436,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
   };
 
   timeSliderChart(res) {
-    // let res = this.timeSliderChartData;
-    console.log(res);
+    // console.log(res);
     res.sort((x, y) => d3.ascending(x.x, y.x));
 
     d3.select("svg.slider-container>g").remove();
@@ -480,20 +461,17 @@ export class AreaChartComponent implements OnInit, OnChanges {
     var xAxis2 = d3.axisBottom(x2);
     var context = svg.append("g")
       .attr("class", "context")
-    //            .attr("transform", "translate(0," + (height - 6) + ")");
     var brush = d3.brushX()
       .extent([[0, 0], [width, height2]])
       .on("brush end", d => {
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
         if (d3.event && d3.event.type === "end") {
           var s = d3.event.selection || x2.range();
-          console.log("brushed teeth :P !!", s.map(x2.invert, x2))
+          // console.log("brushed teeth :P !!", s.map(x2.invert, x2))
           var timeVals = s.map(x2.invert, x2);
           this.sliderData.values = [new Date(timeVals[0]).getTime(), new Date(timeVals[1]).getTime()];
           this.sliderDataChange.emit({ ...this.sliderData });
-          // this.sliderDataChange.emit(this.sliderData);
           this.timeSliderChanged();
-          // this.consumptionDetails(); // dont delete need to use later
         }
       });
 
@@ -526,7 +504,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
       to: this.sliderData.values[1],
       houseData: this.structuredHouseData
     }, res => {
-      console.log(res);
+      // console.log(res);
       if (res.length === 0) {
         res = this.dummyDataObject();
       }

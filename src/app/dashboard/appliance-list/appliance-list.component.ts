@@ -31,7 +31,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes, "changed");
+    // console.log(changes, "changed");
     if (changes.clickedHomesArray && !changes.clickedHomesArray.firstChange) {
       this.getApplianceList();
     }
@@ -93,7 +93,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
   }
 
   clickedOnAppl(e, data) {
-    console.log(e, data);
+    // console.log(e, data);
     this.clickedApplianceId = data.applianceId;
     if (data.clicked) {
       // angular.element(e.currentTarget).removeClass("active");
@@ -128,7 +128,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
         itr++;
       }
     })
-    console.log(this.clickedAppliancesArray, this.clickedHomesArray);
+    // console.log(this.clickedAppliancesArray, this.clickedHomesArray);
     this.applianceSelected.emit({
       csv: this.clickedAppliancesCSV,
       list: this.applianceList,
@@ -138,7 +138,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
   };
 
   getApplianceList() {
-    console.log(this.clickedHomesArray);
+    // console.log(this.clickedHomesArray);
     this.apiService.callServicePost('getApplianceList', {
       homes: this.clickedHomesArray
     }, houseData => { //get the appliance list
@@ -160,7 +160,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
         }
       })
       this.applianceList = houseData;
-      console.log(this.clickedAppliancesCSV);
+      // console.log(this.clickedAppliancesCSV);
       this.applianceSelected.emit({
         csv: this.clickedAppliancesCSV,
         list: this.applianceList,
@@ -184,7 +184,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
         to: this.sliderData.values[1],
         houseData: data
       }, res => {
-        console.log(res, this.applianceList);
+        // console.log(res, this.applianceList);
         this.applianceList.forEach((d, i) => {
           d.unitsConsumed = (Math.floor(res[0]["y" + d.applianceId] * 100 / (60 * 1000)) / 100) + " Units"
           d.percentage = (Math.floor(res[0]["y" + d.applianceId] * 10000 / res[0]["total"]) / 100) + "%"
