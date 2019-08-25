@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   applianceList;
   clickedAppliancesArray;
   clickedAppliancesCSV;
-  // applianceObject = {};
+
   clickedApplianceId;
 
   structuredHouseData;
@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
 
     this.apiService.callServicePost('getHomesList', undefined, data => {
       // console.log(data);
-      this.homesList = [data[0], data[1]];
+      this.homesList = [data[0], data[1], data[2]];
       // this.homesList = [data[0], data[1], data[2], data[3], data[4]];
       /***********
       when selecting all by default
@@ -104,14 +104,6 @@ export class DashboardComponent implements OnInit {
     // console.log(e, houseData);
     houseData.clicked = !houseData.clicked;
     document.getElementsByClassName("each-home select-all")[0]["dataset"].selectState = "some";
-    /* if (houseData.clicked) {
-      e.currentTarget.classList.remove('active');
-      houseData.clicked = false;
-    } else {
-      e.currentTarget.classList.add('active');
-      houseData.clicked = true;
-    } */
-    // console.log(this.homesList);
     this.clickedHomesCSV = '';
     var itr = 0;
     let clickedHomes = [];
@@ -173,155 +165,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // clickedOnAppl(e, data) {
-  //   console.log(e, data);
-  //   this.clickedApplianceId = data.applianceId;
-  //   if (data.clicked) {
-  //     // angular.element(e.currentTarget).removeClass("active");
-  //     e.currentTarget.classList.remove("active");
-  //     data.clicked = false;
-  //     // angular.element(e.currentTarget).css({
-  //     //   background: '',
-  //     //   borderColor: ''
-  //     // }) // do not remove
-  //   } else {
-  //     // angular.element(e.currentTarget).addClass("active");
-  //     e.currentTarget.classList.remove("add");
-  //     data.clicked = true;
-  //     var colorToStyle = this.constants.applBgColor(this.constants.colorArray[data.applianceId]);
-  //     // angular.element(e.currentTarget).css({
-  //     //   background: colorToStyle,
-  //     //   borderColor: this.constants.colorArray[data.applianceId]
-  //     // }) // do not remove
-  //   }
-  //   this.clickedAppliancesArray = [];
-  //   this.clickedAppliancesCSV = '';
-  //   var itr = 0;
-  //   this.applianceList.forEach(d => {
-  //     if (d.clicked === true) {
-  //       this.clickedAppliancesArray.push(d.applianceId);
-  //       (itr === 0) ? this.clickedAppliancesCSV = this.clickedAppliancesCSV + d.applianceId : this.clickedAppliancesCSV = this.clickedAppliancesCSV + "," + d.applianceId;
-  //       itr++;
-  //     }
-  //   })
-  //   console.log(this.clickedAppliancesArray, this.clickedHomesArray);
-
-
-
-  //   var chartDataArray = [];
-  //   this.chartData.forEach(a => {
-  //     var eachPoint = {};
-  //     var total = 0;
-  //     for (var key in a) {
-  //       if (key.indexOf("y") === -1) {
-  //         eachPoint[key] = a[key];
-  //       } else {
-  //         this.clickedAppliancesArray.forEach(b => {
-  //           if (b === Number(key.split("y")[1])) {
-  //             eachPoint[key] = a[key];
-  //             total += a[key];
-  //           }
-  //         })
-  //       }
-  //     }
-  //     eachPoint['total'] = total;
-  //     chartDataArray.push(eachPoint);
-  //   });
-  //   // this.chartCreate(chartDataArray); // uncomment it and dont delete it
-  // };
-
   timeSliderChanged(sliderData) {
     this.sliderData = sliderData;
     // this.sliderData = {...sliderData}; // to detect changes
   }
-  // timeSliderChanged(sliderData?) {
-  //   console.log(this.applianceList);
-  //   var fromDate = new Date(this.sliderData.values[0]).toDateString();
-  //   var toDate = new Date(this.sliderData.values[1]).toDateString();
-  //   this.fromDate = fromDate.split(" ")[1] + " " + fromDate.split(" ")[2] + ", " + fromDate.split(" ")[3];
-  //   this.toDate = toDate.split(" ")[1] + " " + toDate.split(" ")[2] + ", " + toDate.split(" ")[3];
-  //   this.apiService.callServicePost("allApplHomesData", {
-  //     from: this.sliderData.values[0],
-  //     to: this.sliderData.values[1],
-  //     houseData: this.structuredHouseData
-  //   }, res => {
-  //     console.log(res);
-  //     if (res.length === 0) {
-  //       res = this.dummyDataObject();
-  //     }
-  //     res.forEach((a, i) => {
-  //       var total = 0;
-  //       for (var key in a) {
-  //         if (key.indexOf("y") > -1) {
-  //           total += a[key]
-  //         }
-  //       }
-  //       a["total"] = total;
-  //       a["angle"] = i * 2 * Math.PI / res.length;
-  //     })
-  //     this.chartData = res;
-  //     /* var chartDataArray = [];
-  //     this.chartData.forEach(a => {
-  //       var eachPoint = {};
-  //       var total = 0;
-  //       for (var key in a) {
-  //         if (key.indexOf("y") === -1) {
-  //           eachPoint[key] = a[key];
-  //         } else {
-  //           this.clickedAppliancesArray.forEach(b => {
-  //             if (b === Number(key.split("y")[1])) {
-  //               eachPoint[key] = a[key];
-  //               total += a[key];
-  //             }
-  //           })
-  //         }
-  //       }
-  //       eachPoint['total'] = total;
-  //       chartDataArray.push(eachPoint);
-  //     }); */
-  //     // this.chartCreate(chartDataArray); //uncomment it don't dlete it
-  //   }, err => { });
-  // }
-
-  // chartDataFlag: boolean = false;
-
-  // timeSliderSVGApi() {
-  //   /********************
-  //   To get normal data
-  //   ********************/
-  //   this.apiService.callServicePost("applHomeReqBody", {
-  //     homes: this.clickedHomesArray,
-  //     appliances: this.clickedAppliancesArray
-  //   }, data => {
-  //     this.structuredHouseData = data;
-  //     this.apiService.callServicePost("allApplHomesDataNormal", {
-  //       from: this.sliderData.scaleRange[0],
-  //       to: this.sliderData.scaleRange[1],
-  //       houseData: this.structuredHouseData
-  //     }, res => {
-
-  //       // this.timeSliderChart(res)
-  //       this.timeSliderChartData = res;
-  //       this.consumptionDetails(); // delete it later
-  //     }, err => { })
-  //   }, err => { })
-  // }
-
-  // timeSliderChartData;
-
-
-  /*   dummyDataObject() {
-      var res = [];
-      for (var i = 0; i < 24; i++) {
-        res.push({});
-        res[i]["x"] = i;
-        res[i]["total"] = 0;
-        for (var key in this.structuredHouseData.appliances) {
-          res[i]["y" + key] = 0;
-        }
-      }
-      return res;
-    } */
 
   aggregatedChart(e) {
     console.log("aggregated chart", e);

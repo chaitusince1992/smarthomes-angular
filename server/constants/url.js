@@ -1,0 +1,22 @@
+var url = module.exports = {};
+
+url.homelist = '/api/homelist';
+url.applList = '/api/applList';
+url.appliances = '/api/appliances';
+url.homesByAppl = '/api/homesByAppl';
+url.applHomeReqBody = '/api/applHomeReqBody';
+url.getHomesList = '/api/getHomesList';
+url.getApplianceList = '/api/getApplianceList';
+url.mongoApplMapInfo = '/api/mongoApplMapInfo';
+url.minAndMax = '/api/minAndMax';
+url.homeSummary = '/api/homeSummary';
+url.applSummary = '/api/applSummary';
+url.allHomesSummary = '/api/allHomesSummary';
+url.oneHomeData = '/api/oneHomeData';
+url.oneApplData = '/api/oneApplData';
+url.allHomesData = '/api/allHomesData';
+url.allApplHomesSummary = '/api/allApplHomesSummary';
+url.allApplHomesData = '/api/allApplHomesData';
+url.allApplHomesDataNormal = '/api/allApplHomesDataNormal';
+url.oneHomeDataNormal = '/api/oneHomeDataNormal';
+url.minute = '/api/minute';

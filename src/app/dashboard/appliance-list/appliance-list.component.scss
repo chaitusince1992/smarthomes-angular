@@ -1,8 +1,5 @@
 
 .appliance-list-array {
-    /*position: absolute;
-    left: 0;
-    top: 10px;*/
     width: 104%;
     padding: 10px 0;
     margin: 0 -2%;
@@ -41,25 +38,15 @@
         display: inline-block;
         position: relative;
         .appliance-tooltip {
-            /*display: none;
-            position: absolute;
-            top: 70px;
-            text-align: center;
-            width: 100%;
-            color: white;
-            font-size: 10px;*/
             display: none;
             position: absolute;
             top: 75px;
             text-align: center;
-            width: 200%;
+            width: 230%;
             color: rgba(247, 247, 247, 0.7);
             font-size: 12px;
             height: 48px;
-            //            background: rgba(242, 120, 75, 0.5);
-            //            background: #404df3;
             background: #2f3fb1;
-            /* border: 1px solid #F2784B; */
             margin: 0px -64%;
             border-radius: 5px;
             padding: 10%;
@@ -77,7 +64,6 @@
                 position: absolute;
                 z-index: 2;
                 width: 90%;
-                /* background: red; */
                 height: 80%;
             }
         }
