@@ -13,7 +13,7 @@ mongo.getCollection(function (dbs) {
 })
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../dist/smarthomes-angular')));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Content-Type, Autherization");
@@ -21,8 +21,7 @@ app.use(function (req, res, next) {
     next();
 })
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
-    // res.sendFile(path.join(__dirname + '/dist/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/smarthomes-angular/index.html'));
 });
 
 // used in home page
@@ -1910,17 +1909,5 @@ var server = app.listen(5000, function () {
     console.log("Listening on port: ", server.address().port);
 })
 
-
-/*var temp={};
-homeData.forEach(function(home) {
-    home.appliances.forEach(function(appl){
-	    temp[appl.type]=true;
-    })
-})
-var applUniqueArray = [];
-for(var key in temp) {
-applUniqueArray.push(key);
-}
-console.log(applUniqueArray)*/
 
 

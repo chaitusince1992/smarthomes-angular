@@ -201,18 +201,18 @@ export class AreaChartComponent implements OnInit, OnChanges {
       .attr("class", "bgShades")
       .attr("stroke", "#4a5496");
     var x = d3.scaleLinear().range([0, width]).domain([0, 23]) // this is a method
-    var y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(data.total)]) // this is a method
+    var y = d3.scaleLinear().range([height, 0]).domain([0, Number(d3.max(data.total))]) // this is a method
     var yCurr, yPrev;
     if (this.oldChartDataset === undefined) {
-      yCurr = yPrev = d3.scaleLinear().range([height, 10]).domain([0, d3.max(this.chartDataset.data.total)]) // this is a method
+      yCurr = yPrev = d3.scaleLinear().range([height, 10]).domain([0, Number(d3.max(this.chartDataset.data.total))]) // this is a method
     } else {
-      yPrev = d3.scaleLinear().range([height, 10]).domain([0, d3.max(this.oldChartDataset.data.total)]) // this is a method
-      yCurr = d3.scaleLinear().range([height, 10]).domain([0, d3.max(this.chartDataset.data.total)]) // this is a method
+      yPrev = d3.scaleLinear().range([height, 10]).domain([0, Number(d3.max(this.oldChartDataset.data.total))]) // this is a method
+      yCurr = d3.scaleLinear().range([height, 10]).domain([0, Number(d3.max(this.chartDataset.data.total))]) // this is a method
     }
 
-    var xAxis = d3.axisBottom().scale(x).ticks(12).tickSize(-height).tickPadding(10) // method to make x y axis lines
-    var yAxisPrev = d3.axisLeft().scale(yPrev).ticks(5).tickSize(-width).tickPadding(-30) // method to make x y axis lines
-    var yAxisCurr = d3.axisLeft().scale(yCurr).ticks(5).tickSize(-width).tickPadding(-30) // method to make x y axis lines
+    var xAxis = d3.axisBottom(x).scale(x).ticks(12).tickSize(-height).tickPadding(10) // method to make x y axis lines
+    var yAxisPrev = d3.axisLeft(yPrev).scale(yPrev).ticks(5).tickSize(-width).tickPadding(-30) // method to make x y axis lines
+    var yAxisCurr = d3.axisLeft(yCurr).scale(yCurr).ticks(5).tickSize(-width).tickPadding(-30) // method to make x y axis lines
 
 
     bgShades.append("rect")
@@ -284,9 +284,9 @@ export class AreaChartComponent implements OnInit, OnChanges {
           // .curve(d3.curveCardinal)
           // .curve(d3.curveCatmullRom)
           .curve(d3.curveMonotoneX)
-          .x(d => x(new Date(d.x).getTime()))
-          .y1(d => yPrev(d.prev.yh))
-          .y0(d => yPrev(d.prev.yl)))
+          .x((d:any) => x(new Date(d.x).getTime()))
+          .y1((d:any) => yPrev(d.prev.yh))
+          .y0((d:any) => yPrev(d.prev.yl)))
 
 
 
@@ -301,14 +301,14 @@ export class AreaChartComponent implements OnInit, OnChanges {
           d3.selectAll("g.each-area")
             .transition()
             .duration(250)
-            .attr("fill-opacity", (a, b, c) => {
+            .attr("fill-opacity", (a, b, c:any) => {
               if (c[b].id === "each-area" + itr) {
                 return 0.5;
               } else {
                 return 0.2;
               }
             })
-            .attr("stroke", (a, b, c) => {
+            .attr("stroke", (a, b, c:any) => {
               if (c[b].id === "each-area" + itr) {
                 return d3.select(e[0].parentElement).attr("fill");
               } else {
@@ -351,9 +351,9 @@ export class AreaChartComponent implements OnInit, OnChanges {
           // .curve(d3.curveCardinal)
           // .curve(d3.curveCatmullRom)
           .curve(d3.curveMonotoneX)
-          .x(d => x(new Date(d.x).getTime()))
-          .y1(d => yCurr(d.curr.yh))
-          .y0(d => yCurr(d.curr.yl)))
+          .x((d:any) => x(new Date(d.x).getTime()))
+          .y1((d:any) => yCurr(d.curr.yh))
+          .y0((d:any) => yCurr(d.curr.yl)))
     })
     var tooltip = svg.append("g")
       .attr("class", "tooltip-group")
@@ -377,10 +377,10 @@ export class AreaChartComponent implements OnInit, OnChanges {
         d3.select("rect.tooltip")
           .attr("fill", "transparent")
       })
-      .on("mousemove", function (d) {
-        var xVal = x(Math.floor(x.invert(d3.mouse(this)[0])));
+      .on("mousemove", function (d, i, e:any) {
+        var xVal = x(Math.floor(x.invert(d3.mouse(e[0])[0])));
         var color = "#ffffff";
-        if (Math.floor(x.invert(d3.mouse(this)[0])) > 11) {
+        if (Math.floor(x.invert(d3.mouse(e[0])[0])) > 11) {
           color = "#f7f7f7";
         }
         // console.log("mousemoved");
@@ -457,7 +457,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
     var x2 = d3.scaleTime().range([0, width]),
       y2 = d3.scaleLinear().range([height2 + 1, 0]);
     x2.domain([this.sliderData.scaleRange[0], this.sliderData.scaleRange[1]]);
-    y2.domain([0, d3.max(res, d => d.total)]);
+    y2.domain([0, d3.max(res, (d:any) => Number(d.total))]);
     var xAxis2 = d3.axisBottom(x2);
     var context = svg.append("g")
       .attr("class", "context")
@@ -477,9 +477,9 @@ export class AreaChartComponent implements OnInit, OnChanges {
 
     var area2 = d3.area()
       .curve(d3.curveMonotoneX)
-      .x(d => x2(new Date(d.x)))
+      .x((d:any) => x2(new Date(d.x)))
       .y0(height2)
-      .y1(d => y2(d.total));
+      .y1((d:any) => y2(d.total));
 
     context.append("path")
       .datum(res)

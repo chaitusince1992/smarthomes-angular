@@ -25,7 +25,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
     private apiService: ApiService
   ) { }
 
-  
+
   ngOnInit() {
     this.getApplianceList();
   }
@@ -48,14 +48,14 @@ export class ApplianceListComponent implements OnInit, OnChanges {
       d3.selectAll("g.each-area")
         .transition()
         .duration(250)
-        .attr("fill-opacity", (a, b, c) => {
+        .attr("fill-opacity", (a, b, c: any) => {
           if (c[b].id === "each-area" + e.currentTarget.dataset.areaId) {
             return 0.5;
           } else {
             return 0.2;
           }
         })
-        .attr("stroke", (a, b, c) => {
+        .attr("stroke", (a, b, c: any) => {
           if (c[b].id === "each-area" + e.currentTarget.dataset.areaId) {
             return d3.select(c[b]).attr("fill");
           } else {
