@@ -23,7 +23,8 @@ export class AreaChartComponent implements OnInit, OnChanges {
   @Input() clickedAppliancesArray;
   @Input() clickedHomesArray;
 
-  @Output() timeSliderChangedOutput: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() timeSliderChangedOutput: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sliderDataChange: EventEmitter<any> = new EventEmitter<any>();
 
   chartDataset;
   oldChartDataset;
@@ -34,27 +35,31 @@ export class AreaChartComponent implements OnInit, OnChanges {
     private apiService: ApiService
   ) { }
 
+  // isInitialized: boolean = false;
   ngOnInit() {
     this.timeSliderSVGApi();
+    // this.isInitialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes.clickedHomesArray, "changed");
-    if (changes.clickedHomesArray) {
+    if (changes.clickedHomesArray && !changes.clickedHomesArray.firstChange) {
       this.oldChartDataset = undefined;
-      this.timeSliderChanged();
-    }
-    if (changes.clickedAppliancesArray && this.chartData) {
-      this.chartDataFormatting();
-    }
-    if (changes.sliderData) {
+      // this.timeSliderChanged();
       this.timeSliderSVGApi();
-    }
+    } else
+      // if (changes.sliderData && !changes.sliderData.firstChange) {
+      //   // this.timeSliderSVGApi();
+      //   this.timeSliderChanged();
+      // } else 
+      if (changes.clickedAppliancesArray &&
+        !changes.clickedAppliancesArray.firstChange &&
+        this.chartData && this.oldChartDataset) {
+        this.chartDataFormatting();
+      }
     // else {
 
     // }
-
-
   }
   chartCreate(dataArray) {
     // let dataArray = this.chartDataArray;
@@ -297,7 +302,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
 
 
 
-        .on("mousemove", function(d, i, e) {
+        .on("mousemove", function (d, i, e) {
           var xVal = Math.floor(x.invert(d3.mouse(this)[0]));
           d3.select("rect.tooltip")
             .attr("height", height - yCurr(data["total"][xVal]))
@@ -390,7 +395,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
         d3.select("rect.tooltip")
           .attr("fill", "transparent")
       })
-      .on("mousemove", function(d) {
+      .on("mousemove", function (d) {
         var xVal = x(Math.floor(x.invert(d3.mouse(this)[0])));
         var color = "#ffffff";
         if (Math.floor(x.invert(d3.mouse(this)[0])) > 11) {
@@ -485,7 +490,8 @@ export class AreaChartComponent implements OnInit, OnChanges {
           console.log("brushed teeth :P !!", s.map(x2.invert, x2))
           var timeVals = s.map(x2.invert, x2);
           this.sliderData.values = [new Date(timeVals[0]).getTime(), new Date(timeVals[1]).getTime()];
-          this.timeSliderChangedOutput.emit(this.sliderData);
+          this.sliderDataChange.emit({ ...this.sliderData });
+          // this.sliderDataChange.emit(this.sliderData);
           this.timeSliderChanged();
           // this.consumptionDetails(); // dont delete need to use later
         }
@@ -515,8 +521,6 @@ export class AreaChartComponent implements OnInit, OnChanges {
   }
 
   timeSliderChanged() {
-    var fromDate = new Date(this.sliderData.values[0]).toDateString();
-    var toDate = new Date(this.sliderData.values[1]).toDateString();
     this.apiService.callServicePost("allApplHomesData", {
       from: this.sliderData.values[0],
       to: this.sliderData.values[1],

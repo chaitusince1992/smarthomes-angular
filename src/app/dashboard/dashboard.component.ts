@@ -12,14 +12,10 @@ export class DashboardComponent implements OnInit {
   constructor(private apiService: ApiService, private constants: ConstantsService) { }
 
   homesList;
-  clickedHomesArray = [];
+  clickedHomesArray;
   clickedHomesCSV = "";
 
-  sliderData = {
-    // scaleRange: [1394610720000, 1413204060000],
-    scaleRange: [new Date('2013').getTime(), new Date('2016').getTime()],
-    values: [new Date("2014-04-01").getTime(), new Date("2014-05-01").getTime()]
-  };
+  sliderData;
 
 
   applianceList;
@@ -49,14 +45,15 @@ export class DashboardComponent implements OnInit {
       /***********
       when selecting all by default
       ************/
-      this.clickedHomesArray = [];
       this.clickedHomesCSV = '';
+      let clickedHomes = [];
       document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/tick.png" alt="">';
       this.homesList.forEach((d, i) => {
         d.clicked = true;
-        this.clickedHomesArray.push(d.homeId);
+        clickedHomes.push(d.homeId);
         (i === 0) ? this.clickedHomesCSV = this.clickedHomesCSV + d.homeId : this.clickedHomesCSV = this.clickedHomesCSV + "," + d.homeId;
       });
+      this.clickedHomesArray = clickedHomes;
       /***********
       when selecting all by default
       ************/
@@ -144,16 +141,17 @@ export class DashboardComponent implements OnInit {
       houseData.clicked = true;
     }
     console.log(this.homesList);
-    this.clickedHomesArray = [];
     this.clickedHomesCSV = '';
     var itr = 0;
+    let clickedHomes = [];
     this.homesList.forEach(d => {
       if (d.clicked === true) {
-        this.clickedHomesArray.push(d.homeId);
+        clickedHomes.push(d.homeId);
         (itr === 0) ? this.clickedHomesCSV = this.clickedHomesCSV + d.homeId : this.clickedHomesCSV = this.clickedHomesCSV + "," + d.homeId;
         itr++;
       }
     })
+    this.clickedHomesArray = clickedHomes;
     console.log(this.clickedHomesCSV);
     document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/minus.png" alt="">';
     // this.applianceObject = {}; //resetting the appliance array
@@ -189,6 +187,11 @@ export class DashboardComponent implements OnInit {
         d.clicked = false;
       })
       var homeArray = document.getElementsByClassName("each-home active");
+      for (let i = 0; i < homeArray.length; i++) {
+        let home = homeArray[i];
+        home.classList.remove("active")
+      }
+      document.getElementsByClassName("area-group")[0].remove();
       // angular.element(homeArray).removeClass("active"); // dont delete this
       // d3.select("svg g.area-group").remove(); // don't delete this
       this.applianceList = [];
@@ -258,6 +261,10 @@ export class DashboardComponent implements OnInit {
   //   // this.chartCreate(chartDataArray); // uncomment it and dont delete it
   // };
 
+  timeSliderChanged(sliderData) {
+    this.sliderData = sliderData;
+    // this.sliderData = {...sliderData}; // to detect changes
+  }
   // timeSliderChanged(sliderData?) {
   //   console.log(this.applianceList);
   //   var fromDate = new Date(this.sliderData.values[0]).toDateString();
@@ -308,7 +315,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   // chartDataFlag: boolean = false;
-  
+
   // timeSliderSVGApi() {
   //   /********************
   //   To get normal data
@@ -334,18 +341,18 @@ export class DashboardComponent implements OnInit {
   // timeSliderChartData;
 
 
-/*   dummyDataObject() {
-    var res = [];
-    for (var i = 0; i < 24; i++) {
-      res.push({});
-      res[i]["x"] = i;
-      res[i]["total"] = 0;
-      for (var key in this.structuredHouseData.appliances) {
-        res[i]["y" + key] = 0;
+  /*   dummyDataObject() {
+      var res = [];
+      for (var i = 0; i < 24; i++) {
+        res.push({});
+        res[i]["x"] = i;
+        res[i]["total"] = 0;
+        for (var key in this.structuredHouseData.appliances) {
+          res[i]["y" + key] = 0;
+        }
       }
-    }
-    return res;
-  } */
+      return res;
+    } */
 
   aggregatedChart(e) {
     console.log("aggregated chart", e);

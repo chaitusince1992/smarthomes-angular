@@ -1,29 +1,19 @@
-<app-appliance-list *ngIf="clickedHomesArray.length" 
+<app-appliance-list *ngIf="clickedHomesArray && clickedHomesArray.length && sliderData" 
             [clickedHomesArray]="clickedHomesArray"
             [sliderData]="sliderData"
             (applianceSelected)="applianceSelected($event)"></app-appliance-list>
 
-
-<!-- <div class="chart-area" id="chart-area">
-    <div id="daily-trend-chart">
-        <svg class="chart-container" id="">
-
-        </svg>
-    </div>
-    <div id="trend-over-the-time">
-        <svg class="slider-container"></svg>
-    </div>
-</div> -->
-
-<app-area-chart *ngIf="applianceList && clickedAppliancesArray"
+<app-area-chart *ngIf="applianceList && clickedAppliancesArray && 
+                        sliderData && clickedHomesArray && clickedHomesArray.length"
     [sliderData]="sliderData" 
+    (sliderDataChange)="timeSliderChanged($event)"
     [applianceList]="applianceList"
     [clickedAppliancesArray]="clickedAppliancesArray"
     [clickedHomesArray]="clickedHomesArray"
-    [clickedApplianceId]="clickedApplianceId"
-    (timeSliderChangedOuput)="timeSliderChanged($event)"></app-area-chart>
+    [clickedApplianceId]="clickedApplianceId"></app-area-chart>
     <!-- [chartData]="chartData" -->
-    <!-- [timeSliderChartData]="timeSliderChartData" -->
+    <!-- [timeSliderChartData]="timeSliderChartData"
+    (timeSliderChangedOuput)="timeSliderChanged($event)" -->
 
 <!-- <app-building-list [homesList]="homesList"></app-building-list> -->
 <div class="building-array" id="building-block">

@@ -25,13 +25,19 @@ export class ApplianceListComponent implements OnInit, OnChanges {
     private apiService: ApiService
   ) { }
 
+  
   ngOnInit() {
     this.getApplianceList();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes, "changed");
-    this.getApplianceList();
+    if (changes.clickedHomesArray && !changes.clickedHomesArray.firstChange) {
+      this.getApplianceList();
+    }
+    if (changes.sliderData && !changes.sliderData.firstChange) {
+      this.consumptionDetails();
+    }
     // You can also use categoryId.previousValue and 
     // categoryId.firstChange for comparing old and new values
 
