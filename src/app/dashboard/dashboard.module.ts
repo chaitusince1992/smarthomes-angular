@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
-import { BuildingListComponent } from './building-list/building-list.component';
+// import { BuildingListComponent } from './building-list/building-list.component';
 import { ApplianceListComponent } from './appliance-list/appliance-list.component';
 import { AreaChartComponent } from './area-chart/area-chart.component';
 
@@ -20,7 +20,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     DashboardComponent,
-    BuildingListComponent,
+    // BuildingListComponent,
     ApplianceListComponent,
     AreaChartComponent
   ],
@@ -33,7 +33,7 @@ const routes: Routes = [
   ],
   exports: [
     DashboardComponent,
-    BuildingListComponent,
+    // BuildingListComponent,
     ApplianceListComponent
   ]
 })

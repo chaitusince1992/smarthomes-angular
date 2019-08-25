@@ -18,9 +18,11 @@
 
 <div class="appliance-list-array">
   <div class="mac-effect-container" *ngFor="let appliance of applianceList"
+    [attr.data-area-id]="appliance.applianceId"
     (mouseover)="mouseoverOnAppl($event, appliance.clicked)" 
     (mouseleave)="mouseleaveOnAppl($event, appliance.clicked)">
-    <div class="appliance-svg-icon-container active">
+    <div class="appliance-svg-icon-container active" (click)="clickedOnAppl($event,appliance)"
+        [ngStyle]="{'backgroundColor':appliance.color, 'borderColor': appliance.borderColor}">
       <img [src]="'assets/img/new-svg/' + appliance.applianceId +'.svg'" alt="ic">
     </div>
     <div class="appliance-tooltip">

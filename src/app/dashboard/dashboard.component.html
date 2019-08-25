@@ -1,7 +1,10 @@
-<app-appliance-list [applianceList]="applianceList"></app-appliance-list>
+<app-appliance-list *ngIf="clickedHomesArray.length" 
+            [clickedHomesArray]="clickedHomesArray"
+            [sliderData]="sliderData"
+            (applianceSelected)="applianceSelected($event)"></app-appliance-list>
 
 
-<div class="chart-area" id="chart-area">
+<!-- <div class="chart-area" id="chart-area">
     <div id="daily-trend-chart">
         <svg class="chart-container" id="">
 
@@ -10,9 +13,32 @@
     <div id="trend-over-the-time">
         <svg class="slider-container"></svg>
     </div>
-</div>
+</div> -->
 
-<app-area-chart></app-area-chart>
+<app-area-chart *ngIf="applianceList && clickedAppliancesArray"
+    [sliderData]="sliderData" 
+    [applianceList]="applianceList"
+    [clickedAppliancesArray]="clickedAppliancesArray"
+    [clickedHomesArray]="clickedHomesArray"
+    [clickedApplianceId]="clickedApplianceId"
+    (timeSliderChangedOuput)="timeSliderChanged($event)"></app-area-chart>
+    <!-- [chartData]="chartData" -->
+    <!-- [timeSliderChartData]="timeSliderChartData" -->
 
-
-<app-building-list [homesList]="homesList"></app-building-list>
+<!-- <app-building-list [homesList]="homesList"></app-building-list> -->
+<div class="building-array" id="building-block">
+    <div class="building-array-scroll">
+        <div class="building-array-container">
+            <div class="each-home select-all" (click)="clickedOnSelectAllNone($event)" attr.data-select-state="all">
+                <div class="select-all-none"><img src="assets/img/tick.png" alt=""></div>
+            </div>
+            <div class="each-home active" *ngFor="let home of homesList" (click)="clickedOnHome($event, home)"
+                [attr.data-home-id]="home.homeId" ng-model="home.clicked" homes-list-directive>
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="23" viewBox="0 0 21 23">
+                    <path fill="#FFF" fill-rule="nonzero"
+                        d="M10.041.51L.2 7.765a.489.489 0 0 0-.2.393v13.539c0 .253.234.483.492.483h6.643c.258 0 .492-.23.492-.483v-6.77h5.413v6.77c0 .253.234.483.492.483h6.643c.257 0 .492-.23.492-.483V8.156a.492.492 0 0 0-.2-.392L10.626.51c-.226-.13-.39-.11-.585 0zm.292.998l9.35 6.89v12.814h-5.66v-6.77a.507.507 0 0 0-.491-.483H7.135a.507.507 0 0 0-.492.483v6.77H.984V8.398l9.35-6.89z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+  </div>
