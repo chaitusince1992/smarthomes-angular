@@ -20,7 +20,8 @@
     <div class="building-array-scroll">
         <div class="building-array-container">
             <div class="each-home select-all" (click)="clickedOnSelectAllNone($event)" attr.data-select-state="all">
-                <div class="select-all-none"><img src="assets/img/tick.png" alt=""></div>
+                <!-- <div *ngIf="!noHomeSelected" class="select-all-none"><img src="assets/img/tick.png" alt=""></div>
+                <div *ngIf="noHomeSelected" class="select-all-none"><img src="assets/img/minus.png" alt=""></div> -->
             </div>
             <div class="each-home active" *ngFor="let home of homesList" (click)="clickedOnHome($event, home)"
                 [attr.data-home-id]="home.homeId" ng-model="home.clicked" homes-list-directive>

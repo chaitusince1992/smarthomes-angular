@@ -2,4 +2,30 @@
 
 body {
     margin: 0;
+    text-align: center;
+    height: 98vh;
+    font-family: Effra;
+    background: #082B41;
+}
+
+.chart-area {
+    g.chart-group text {
+        fill: #9c9c9c;
+    }
+    //for svg chart text
+    g.context {
+        g.axis.axis--x {
+            path,
+            line {
+                stroke: #4a5496;
+            }
+        }
+        rect.overlay {
+            stroke: #4a5496;
+        }
+        rect.handle {
+            fill: #2063c7;
+            stroke: none;
+        }
+    }
 }

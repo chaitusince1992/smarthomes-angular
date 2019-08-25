@@ -36,18 +36,21 @@ export class DashboardComponent implements OnInit {
   fromDate;
   toDate;
 
+  noHomeSelected: boolean;
   // chartDataArray = [];
   ngOnInit() {
 
     this.apiService.callServicePost('getHomesList', undefined, data => {
       console.log(data);
       this.homesList = [data[0], data[1]];
+      // this.homesList = [data[0], data[1], data[2], data[3], data[4]];
       /***********
       when selecting all by default
       ************/
       this.clickedHomesCSV = '';
       let clickedHomes = [];
-      document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/tick.png" alt="">';
+      this.noHomeSelected = false;
+      // document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/tick.png" alt="">';
       this.homesList.forEach((d, i) => {
         d.clicked = true;
         clickedHomes.push(d.homeId);
@@ -153,7 +156,8 @@ export class DashboardComponent implements OnInit {
     })
     this.clickedHomesArray = clickedHomes;
     console.log(this.clickedHomesCSV);
-    document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/minus.png" alt="">';
+    this.noHomeSelected = true;
+    // document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/minus.png" alt="">';
     // this.applianceObject = {}; //resetting the appliance array
 
     /*****************************
@@ -195,7 +199,8 @@ export class DashboardComponent implements OnInit {
       // angular.element(homeArray).removeClass("active"); // dont delete this
       // d3.select("svg g.area-group").remove(); // don't delete this
       this.applianceList = [];
-      e.currentTarget.children[0].innerHTML = '<img src="assets/img/minus.png" alt="">';
+      // e.currentTarget.children[0].innerHTML = '<img src="assets/img/minus.png" alt="">';
+      this.noHomeSelected = true;
       e.currentTarget.dataset.selectState = "none";
     } else if (e.currentTarget.dataset.selectState === "none") {
       this.oldChartDataset = undefined;

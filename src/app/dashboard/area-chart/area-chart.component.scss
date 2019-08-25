@@ -1,13 +1,13 @@
 .chart-area {
     height: 75%;
-    height: 500px;
+    // height: 500px;
     top: 50px;
     left: 0px;
     right: 30px;
     padding: 15px 5px 0;
     overflow: auto;
     width: 85%;
-    width: 900px;
+    // width: 900px;
     display: inline-block;
 
     #daily-trend-chart {
@@ -33,3 +33,4 @@
         height: initial;
     }
 }
+
