@@ -177,7 +177,7 @@ export class ApplianceListComponent implements OnInit, OnChanges {
   consumptionDetails() {
     this.apiService.callServicePost("applHomeReqBody", {
       homes: this.clickedHomesArray,
-      appliances: this.clickedAppliancesArray
+      // appliances: this.clickedAppliancesArray
     }, data => {
       this.apiService.callServicePost("allApplHomesSummary", {
         from: this.sliderData.values[0],

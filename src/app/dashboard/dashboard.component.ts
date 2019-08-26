@@ -37,13 +37,14 @@ export class DashboardComponent implements OnInit {
   toDate;
 
   noHomeSelected: boolean;
+  selectedHome;
   // chartDataArray = [];
   ngOnInit() {
 
     this.apiService.callServicePost('getHomesList', undefined, data => {
       // console.log(data);
-      this.homesList = [data[0], data[1], data[2]];
-      // this.homesList = [data[0], data[1], data[2], data[3], data[4]];
+      // this.homesList = [data[0], data[1], data[2]];
+      this.homesList = [data[0], data[1], data[2], data[3], data[4]];
       /***********
       when selecting all by default
       ************/
@@ -51,12 +52,19 @@ export class DashboardComponent implements OnInit {
       let clickedHomes = [];
       this.noHomeSelected = false;
       // document.getElementsByClassName("select-all-none")[0].innerHTML = '<img src="assets/img/tick.png" alt="">';
-      this.homesList.forEach((d, i) => {
+      /* this.homesList.forEach((d, i) => {
         d.clicked = true;
         clickedHomes.push(d.homeId);
         (i === 0) ? this.clickedHomesCSV = this.clickedHomesCSV + d.homeId : this.clickedHomesCSV = this.clickedHomesCSV + "," + d.homeId;
-      });
+      }); */
+      this.homesList.forEach((d, i) => {
+        d.clicked = false;
+      }); // clicked is coming from backend...
+      this.homesList[0].clicked = true;
+      this.selectedHome = this.homesList[0];
+      clickedHomes.push(this.homesList[0].homeId);
       this.clickedHomesArray = clickedHomes;
+      this.clickedHomesCSV = this.homesList[0].homeId;
       /***********
       when selecting all by default
       ************/
@@ -100,21 +108,33 @@ export class DashboardComponent implements OnInit {
     }, err => { });
   }
 
-  clickedOnHome(e, houseData) {
+  clickedOnHome(e, houseData, index) {
     // console.log(e, houseData);
+    this.selectedHome = houseData;
     houseData.clicked = !houseData.clicked;
     document.getElementsByClassName("each-home select-all")[0]["dataset"].selectState = "some";
     this.clickedHomesCSV = '';
-    var itr = 0;
+
     let clickedHomes = [];
+
+    this.homesList.forEach((d, i) => {
+      d.clicked = false;
+    }); // clicked is coming from backend...
+    this.homesList[index].clicked = true;
+    clickedHomes.push(this.homesList[index].homeId);
+    this.clickedHomesArray = clickedHomes;
+    this.clickedHomesCSV = this.homesList[0].homeId;
+
+
+    /*
+    var itr = 0; 
     this.homesList.forEach(d => {
       if (d.clicked === true) {
         clickedHomes.push(d.homeId);
         (itr === 0) ? this.clickedHomesCSV = this.clickedHomesCSV + d.homeId : this.clickedHomesCSV = this.clickedHomesCSV + "," + d.homeId;
         itr++;
       }
-    })
-    this.clickedHomesArray = clickedHomes;
+    }) */
     // console.log(this.clickedHomesCSV);
     this.noHomeSelected = true;
 

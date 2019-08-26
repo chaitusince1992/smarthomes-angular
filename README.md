@@ -25,3 +25,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+##MongoDB Restore:
+
+mongorestore --host <appname_mongo>-shard-0/<appname_mongo>-shard-00-00-shqik.mongodb.net:27017,<appname_mongo>-shard-00-01-shqik.mongodb.net:27017,<appname_mongo>-shard-00-02-shqik.mongodb.net:27017 --ssl --username <username> --password <password> --authenticationDatabase admin <dump_location>
+
+https://dzone.com/articles/migrating-data-to-mongodb-atlas

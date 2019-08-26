@@ -169,7 +169,7 @@ export class AreaChartComponent implements OnInit, OnChanges {
     ********************/
     this.apiService.callServicePost("applHomeReqBody", {
       homes: this.clickedHomesArray,
-      appliances: this.clickedAppliancesArray
+      // appliances: this.clickedAppliancesArray
     }, data => {
       this.structuredHouseData = data;
       this.apiService.callServicePost("allApplHomesDataNormal", {

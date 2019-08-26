@@ -1,3 +1,42 @@
+.viz-header {
+    background-color: #082b40;
+    text-align: left;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+
+    .viz-icon {
+        display: inline-block;
+        vertical-align: middle;
+        // width: 36px;
+    }
+
+    .viz-label {
+        display: inline-block;
+        color: #ffffff;
+        vertical-align: top;
+        margin: 5px 10px;
+    }
+
+    .home-desc {
+        vertical-align: middle;
+        width: calc(100% - 450px);
+        display: inline-block;
+        text-align: center;
+        margin-right: 230px;
+
+        .title {
+            color: #1bf5e2;
+            font-size: 20px;
+        }
+
+        .desc {
+            font-size: 14px;
+            color: #b7b7b5;
+        }
+    }
+}
+
 .building-array {
     width: 70px;
     display: inline-block;
@@ -62,7 +101,7 @@
             filter: invert(100%);
         }
     }
-    
+
     &.active.disabled {
         pointer-events: none;
     }

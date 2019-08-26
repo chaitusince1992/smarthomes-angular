@@ -1,31 +1,44 @@
-<app-appliance-list *ngIf="clickedHomesArray && clickedHomesArray.length && sliderData" 
-            [clickedHomesArray]="clickedHomesArray"
-            [sliderData]="sliderData"
-            (applianceSelected)="applianceSelected($event)"></app-appliance-list>
+<div class="viz-header">
+    <div class="viz-icon">
+        <img src="assets/img/viz-logo.svg">
+        <div class="viz-label">Power Consumption <div
+            style="font-size: 12px;color: rgba(247, 247, 247, 0.5);letter-spacing: 0.01em;">24 hour trend (Load
+            Curve)
+        </div>
+    </div>
+    </div>
+    
+    <div class="home-desc">
+        <div class="title">{{selectedHome?.homeTitle}}</div>
+        <div class="desc">{{selectedHome?.homeDescription}}</div>
+    </div>
+
+</div>
+
+<app-appliance-list *ngIf="clickedHomesArray && clickedHomesArray.length && sliderData"
+    [clickedHomesArray]="clickedHomesArray" [sliderData]="sliderData" (applianceSelected)="applianceSelected($event)">
+</app-appliance-list>
 
 <app-area-chart *ngIf="applianceList && clickedAppliancesArray && 
-                        sliderData && clickedHomesArray && clickedHomesArray.length"
-    [sliderData]="sliderData" 
-    (sliderDataChange)="timeSliderChanged($event)"
-    [applianceList]="applianceList"
-    [clickedAppliancesArray]="clickedAppliancesArray"
-    [clickedHomesArray]="clickedHomesArray"
+                        sliderData && clickedHomesArray && clickedHomesArray.length" [sliderData]="sliderData"
+    (sliderDataChange)="timeSliderChanged($event)" [applianceList]="applianceList"
+    [clickedAppliancesArray]="clickedAppliancesArray" [clickedHomesArray]="clickedHomesArray"
     [clickedApplianceId]="clickedApplianceId"></app-area-chart>
-    <!-- [chartData]="chartData" -->
-    <!-- [timeSliderChartData]="timeSliderChartData"
+<!-- [chartData]="chartData" -->
+<!-- [timeSliderChartData]="timeSliderChartData"
     (timeSliderChangedOuput)="timeSliderChanged($event)" -->
 
 <!-- <app-building-list [homesList]="homesList"></app-building-list> -->
 <div class="building-array" id="building-block">
     <div class="building-array-scroll">
         <div class="building-array-container">
-            <div class="each-home select-all" (click)="clickedOnSelectAllNone($event)" 
-                    attr.data-select-state="all" style="display: none;">
+            <div class="each-home select-all" (click)="clickedOnSelectAllNone($event)" attr.data-select-state="all"
+                style="display: none;">
                 <!-- <div *ngIf="!noHomeSelected" class="select-all-none"><img src="assets/img/tick.png" alt=""></div>
                 <div *ngIf="noHomeSelected" class="select-all-none"><img src="assets/img/minus.png" alt=""></div> -->
             </div>
-            <div class="each-home active" *ngFor="let home of homesList" (click)="clickedOnHome($event, home)" 
-                [ngClass]="{'disabled': clickedHomesArray.length == 1,'active': home.clicked}"
+            <div class="each-home" *ngFor="let home of homesList; let index = index;"
+                (click)="clickedOnHome($event, home, index)" [ngClass]="{'active': home.clicked}"
                 [attr.data-home-id]="home.homeId">
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="23" viewBox="0 0 21 23">
                     <path fill="#FFF" fill-rule="nonzero"
@@ -34,4 +47,4 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
