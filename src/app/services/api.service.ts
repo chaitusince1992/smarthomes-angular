@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class ApiService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    if (environment.production) {
+      this.baseUrl = "./api/";
+    }
+  }
+
 
   baseUrl = "http://localhost:5000/api/";
   callServiceGet(url, success, error) {
