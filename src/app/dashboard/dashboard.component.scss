@@ -25,6 +25,10 @@
         text-align: center;
         margin-right: 230px;
 
+        @media screen and (max-width: 800px) {
+            width: calc(100% - 350px);
+            margin-right: 20px;
+        }
         .title {
             color: #1bf5e2;
             font-size: 20px;
