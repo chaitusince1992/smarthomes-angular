@@ -43,8 +43,8 @@ export class DashboardComponent implements OnInit {
 
     this.apiService.callServicePost('getHomesList', undefined, data => {
       // console.log(data);
-      // this.homesList = [data[0], data[1], data[2]];
-      this.homesList = [data[0], data[1], data[2], data[3], data[4]];
+      this.homesList = data;
+      // this.homesList = [data[0], data[1], data[2], data[3], data[4]];
       /***********
       when selecting all by default
       ************/
